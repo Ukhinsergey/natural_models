@@ -6,10 +6,6 @@
 
 using namespace std;
 
-double frand() // вещественное случайное число в диапазоне [0,1)
-{
-    return double(rand())/RAND_MAX;
-}
 
 double genDouble ( const double a , const double b ) {
     static random_device rd ;
@@ -73,8 +69,8 @@ void select(double* P, int m, int n)
     {
         int a = 2*k;
         int b = 2*k+1;
-        double fa = f2(P, n, a);
-        double fb = f2(P, n, b);
+        double fa = f1(P, n, a);
+        double fb = f1(P, n, b);
         double p = genDouble(0., 1.);
         if( (fa<fb && p<pwin ) || (fa>fb && p>pwin) )
             for( int i=0; i<n; i++ )
@@ -112,17 +108,12 @@ double printthebest(double* P, int m, int n)
     int idx_best = -1;
     double best_val = 1e18;
     for(int i = 0 ; i < m; ++i) {
-        double cur_val = f2(P, n, i);
+        double cur_val = f1(P, n, i);
         if (cur_val < best_val) {
             best_val = cur_val;
             idx_best = i;
         }
     }
-
-    // cout << best_val << ": ";
-    // for( int i=0; i<n; i++ )
-    //     cout << P[idx_best*n+i] << ' ';
-    // cout << endl;
 
     return best_val;
 }
